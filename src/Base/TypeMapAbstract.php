@@ -1,9 +1,10 @@
 <?php
 
-namespace Koncept\DI\TypeMap;
+namespace Koncept\DI\Base;
 
 use Koncept\DI\Exceptions\NonexistentTypeException;
 use Koncept\DI\Exceptions\UnsupportedTypeException;
+use Koncept\DI\TypeMapInterface;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionObject;

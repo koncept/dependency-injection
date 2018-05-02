@@ -1,6 +1,6 @@
 <?php
 
-namespace Koncept\DI\TypeMap;
+namespace Koncept\DI;
 
 
 /**
