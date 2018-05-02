@@ -2,7 +2,7 @@
 
 namespace Koncept\DI\Exceptions;
 
-use LogicException;
+use InvalidArgumentException;
 
 
 /**
@@ -14,6 +14,6 @@ use LogicException;
  * @since v1.0.0
  */
 class NonexistentTypeException
-    extends LogicException
+    extends InvalidArgumentException
 {
 }
