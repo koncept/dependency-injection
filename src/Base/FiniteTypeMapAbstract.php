@@ -26,7 +26,7 @@ abstract class FiniteTypeMapAbstract
      * @param string $type
      * @return bool
      */
-    final public function support(string $type): bool
+    final public function supports(string $type): bool
     {
         $list = $this->list ?? array_flip($this->getList()->getArray());
         return isset($list[$type]);

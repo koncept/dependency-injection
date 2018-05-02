@@ -23,9 +23,9 @@ class ZZZFiniteTypeMapAbstractTest
 
     public function testSupport()
     {
-        $this->assertTrue($this->finiteTypeMap->support(ZZZObjectA::class));
-        $this->assertTrue($this->finiteTypeMap->support(ZZZObjectB::class));
-        $this->assertFalse($this->finiteTypeMap->support(ZZZObjectCDependingOnB::class));
-        $this->assertFalse($this->finiteTypeMap->support(ZZZObjectDExtendsB::class));
+        $this->assertTrue($this->finiteTypeMap->supports(ZZZObjectA::class));
+        $this->assertTrue($this->finiteTypeMap->supports(ZZZObjectB::class));
+        $this->assertFalse($this->finiteTypeMap->supports(ZZZObjectCDependingOnB::class));
+        $this->assertFalse($this->finiteTypeMap->supports(ZZZObjectDExtendsB::class));
     }
 }

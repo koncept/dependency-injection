@@ -50,7 +50,7 @@ class ZZZTypeMapAbstractTest
 
     public function testUnsupported()
     {
-        $this->assertFalse($this->typeMap->support(stdClass::class));
+        $this->assertFalse($this->typeMap->supports(stdClass::class));
         $this->expectException(UnsupportedTypeException::class);
         $this->typeMap->get(stdClass::class);
     }

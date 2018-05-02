@@ -42,7 +42,7 @@ class ZZZTypeMapMock
      * @param string $type
      * @return bool
      */
-    public function support(string $type): bool
+    public function supports(string $type): bool
     {
         $candidates = [
             ZZZObjectA::class             => true,

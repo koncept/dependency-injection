@@ -34,8 +34,8 @@ class ZZZObjectContainerTest
 
     public function testBehavior()
     {
-        $this->assertTrue($this->objectContainer->support(ZZZObjectA::class));
-        $this->assertFalse($this->objectContainer->support(ZZZObjectB::class));
+        $this->assertTrue($this->objectContainer->supports(ZZZObjectA::class));
+        $this->assertFalse($this->objectContainer->supports(ZZZObjectB::class));
 
         $this->assertInstanceOf(ZZZObjectA::class, $this->objectContainer->get(ZZZObjectA::class));
     }
@@ -46,10 +46,10 @@ class ZZZObjectContainerTest
             ->with(new ZZZObjectCDependingOnB(new ZZZObjectB))
             ->with(new ZZZObjectDExtendsB, ZZZObjectB::class);
 
-        $this->assertTrue($oc->support(ZZZObjectA::class));
-        $this->assertTrue($oc->support(ZZZObjectB::class));
-        $this->assertTrue($oc->support(ZZZObjectCDependingOnB::class));
-        $this->assertFalse($oc->support(ZZZObjectDExtendsB::class));
+        $this->assertTrue($oc->supports(ZZZObjectA::class));
+        $this->assertTrue($oc->supports(ZZZObjectB::class));
+        $this->assertTrue($oc->supports(ZZZObjectCDependingOnB::class));
+        $this->assertFalse($oc->supports(ZZZObjectDExtendsB::class));
 
         $this->assertInstanceOf(ZZZObjectA::class, $oc->get(ZZZObjectA::class));
         $this->assertInstanceOf(ZZZObjectB::class, $oc->get(ZZZObjectB::class));
@@ -67,10 +67,10 @@ class ZZZObjectContainerTest
 
         $merged = ObjectContainer::Merge($oc1, $oc2);
 
-        $this->assertTrue($merged->support(ZZZObjectA::class));
-        $this->assertTrue($merged->support(ZZZObjectB::class));
-        $this->assertTrue($merged->support(ZZZObjectCDependingOnB::class));
-        $this->assertFalse($merged->support(ZZZObjectDExtendsB::class));
+        $this->assertTrue($merged->supports(ZZZObjectA::class));
+        $this->assertTrue($merged->supports(ZZZObjectB::class));
+        $this->assertTrue($merged->supports(ZZZObjectCDependingOnB::class));
+        $this->assertFalse($merged->supports(ZZZObjectDExtendsB::class));
 
         $this->assertInstanceOf(ZZZObjectA::class, $merged->get(ZZZObjectA::class));
         $this->assertInstanceOf(ZZZObjectB::class, $merged->get(ZZZObjectB::class));

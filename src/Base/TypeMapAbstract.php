@@ -44,7 +44,7 @@ abstract class TypeMapAbstract
      */
     final public function get(string $type): object
     {
-        if (!$this->support($type)) {
+        if (!$this->supports($type)) {
             $refCls = $this->getReflectionClass($type);
             throw new UnsupportedTypeException(
                 "The required class {$refCls->getShortName()} ({$refCls->getName()}) is not supported"
