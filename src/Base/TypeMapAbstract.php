@@ -44,7 +44,9 @@ abstract class TypeMapAbstract
     {
         if (!$this->support($type)) {
             $refCls = $this->getReflectionClass($type);
-            throw new UnsupportedTypeException("The required class {$refCls->getShortName()} ({$refCls->getName()}) is not supported");
+            throw new UnsupportedTypeException(
+                "The required class {$refCls->getShortName()} ({$refCls->getName()}) is not supported"
+            );
         }
 
         if (!(($ret = $this->getObject($type)) instanceof $type)) {
@@ -55,7 +57,8 @@ abstract class TypeMapAbstract
             (function (TypeError $e) {
                 throw $e;
             })(new TypeError(
-                "Return value of {$refThis->getShortName()}::getObject() ({$refThis->getName()}) must be an instance of {$refCls->getShortName()} ({$type}), " .
+                "Return value of {$refThis->getShortName()}::getObject() ({$refThis->getName()}) " .
+                "must be an instance of {$refCls->getShortName()} ({$type}), " .
                 "instance of {$refObj->getShortName()} ({$refObj->getName()}) returned"
             ));
         }
@@ -77,7 +80,10 @@ abstract class TypeMapAbstract
         } catch (ReflectionException $reflectionException) {
             $temp = explode('\\', $type);
             $name = array_pop($temp);
-            throw new NonexistentTypeException("The required class {$name} ({$type}) does not exist", 0, $reflectionException);
+            throw new NonexistentTypeException(
+                "The required class {$name} ({$type}) does not exist",
+                0, $reflectionException
+            );
         }
         return $refCls;
     }
