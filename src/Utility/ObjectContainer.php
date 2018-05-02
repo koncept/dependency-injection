@@ -59,6 +59,25 @@ class ObjectContainer
         return $ret;
     }
 
+
+    /**
+     * Merge many ObjectContainers into one ObjectContainer.
+     *
+     * @param ObjectContainer[] ...$containers
+     * @return ObjectContainer
+     */
+    public static function Merge(ObjectContainer ...$containers): self
+    {
+        $ret = new ObjectContainer;
+        if (empty($containers)) return $ret;
+
+        $objectsArray = [];
+        foreach ($containers as $container) $objectsArray[] = $container->objects;
+
+        $ret->objects = array_merge(...$objectsArray);
+        return $ret;
+    }
+
     /**
      * Check if $object instanceof $type is true or not.
      * If it is false, find the reason and throw an exception.
