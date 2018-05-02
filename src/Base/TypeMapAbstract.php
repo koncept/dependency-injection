@@ -5,6 +5,7 @@ namespace Koncept\DI\Base;
 use Koncept\DI\Exceptions\NonexistentTypeException;
 use Koncept\DI\Exceptions\UnsupportedTypeException;
 use Koncept\DI\TypeMapInterface;
+use LogicException;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionObject;
@@ -28,11 +29,12 @@ abstract class TypeMapAbstract
      * This method is called inside get() after confirming that the type is supported.
      * So, there is no need to call support() at first in your implementation of this method.
      * In other words, assert($this->support($type)) always passes in this method.
+     * Return null at unreachable code. Returning null causes LogicException to be thrown.
      *
      * @param string $type
-     * @return object
+     * @return null|object
      */
-    abstract protected function getObject(string $type): object;
+    abstract protected function getObject(string $type): ?object;
 
     /**
      * Acquire object of the type.
@@ -49,7 +51,16 @@ abstract class TypeMapAbstract
             );
         }
 
-        if (!(($ret = $this->getObject($type)) instanceof $type)) {
+        $ret = $this->getObject($type);
+
+        if (is_null($ret)) {
+            throw new LogicException(
+                "Though the type {$this->getShortName($type)} ({$type}) is supported, " .
+                "acquiring the object somehow failed."
+            );
+        }
+
+        if (!($ret instanceof $type)) {
             $refCls = $this->getReflectionClass($type);
             $refObj = new ReflectionObject($ret);
             $refThis = new ReflectionObject($this);
@@ -78,13 +89,18 @@ abstract class TypeMapAbstract
         try {
             $refCls = new ReflectionClass($type);
         } catch (ReflectionException $reflectionException) {
-            $temp = explode('\\', $type);
-            $name = array_pop($temp);
+            $name = $this->getShortName($type);
             throw new NonexistentTypeException(
                 "The required class {$name} ({$type}) does not exist",
                 0, $reflectionException
             );
         }
         return $refCls;
+    }
+
+    private function getShortName(string $type): string
+    {
+        $temp = explode('\\', $type);
+        return array_pop($temp);
     }
 }

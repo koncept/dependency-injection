@@ -125,12 +125,13 @@ class ObjectContainer
      * This method is called inside get() after confirming that the type is supported.
      * So, there is no need to call support() at first in your implementation of this method.
      * In other words, assert($this->support($type)) always passes in this method.
+     * Return null at unreachable code. Returning null causes LogicException to be thrown.
      *
      * @param string $type
-     * @return object
+     * @return null|object
      */
-    protected function getObject(string $type): object
+    protected function getObject(string $type): ?object
     {
-        return $this->objects[$type];
+        return $this->objects[$type] ?? null;
     }
 }
