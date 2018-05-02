@@ -1,0 +1,26 @@
+{
+    "name": "koncept/dependency-injection",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Showsay You",
+            "email": "akizuki.c10.l65@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Koncept\\DI\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Koncept\\DI\\Tests\\": "tests/"
+        }
+    }
+}
