@@ -109,10 +109,11 @@ final class ObjectContainer
 
     /**
      * Return the list of supported types.
+     * This method will be called only once for each instance.
      *
      * @return Vector_string
      */
-    public function getList(): Vector_string
+    public function generateList(): Vector_string
     {
         return new Vector_string(
             ...array_keys($this->objects)

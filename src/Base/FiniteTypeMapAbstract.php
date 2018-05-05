@@ -3,6 +3,7 @@
 namespace Koncept\DI\Base;
 
 use Koncept\DI\FiniteTypeMapInterface;
+use Strict\Collection\Vector\Scalar\Vector_string;
 
 
 /**
@@ -17,8 +18,27 @@ abstract class FiniteTypeMapAbstract
     extends TypeMapAbstract
     implements FiniteTypeMapInterface
 {
-    /** @var null|int[] */
+    /** @var Vector_string */
     private $list = null;
+
+
+    /**
+     * Return the list of supported types.
+     * This method will be called only once for each instance.
+     *
+     * @return Vector_string
+     */
+    abstract protected function generateList(): Vector_string;
+
+    /**
+     * Return the list of supported types.
+     *
+     * @return Vector_string
+     */
+    final public function getList(): Vector_string
+    {
+        return $this->list ?? $this->list = $this->generateList();
+    }
 
     /**
      * Return the type is supported or not.
@@ -28,7 +48,7 @@ abstract class FiniteTypeMapAbstract
      */
     final public function supports(string $type): bool
     {
-        $list = $this->list ?? array_flip($this->getList()->getArray());
+        $list = array_flip($this->getList()->getArray());
         return isset($list[$type]);
     }
 }
