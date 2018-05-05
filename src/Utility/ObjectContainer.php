@@ -19,7 +19,7 @@ use Strict\Collection\Vector\Scalar\Vector_string;
  * @package koncept/dependency-injection
  * @since v1.0.0
  */
-class ObjectContainer
+final class ObjectContainer
     extends FiniteTypeMapAbstract
 {
     /** @var object[] */
@@ -97,7 +97,7 @@ class ObjectContainer
             throw new NonexistentTypeException("The designated type {$name} ($type) does not exist", 0, $reflectionException);
         }
 
-        $refObj = new ReflectionObject($object);
+        $refObj  = new ReflectionObject($object);
         $refThis = new ReflectionObject($this);
 
         throw new IncompatibleTypeException(
