@@ -4,6 +4,7 @@ namespace Koncept\DI\Base;
 
 use Koncept\DI\Exceptions\NonexistentTypeException;
 use Koncept\DI\Exceptions\UnsupportedTypeException;
+use Koncept\DI\Internal\ReflectionClassAcquisition;
 use Koncept\DI\TypeMapInterface;
 use LogicException;
 use ReflectionClass;
@@ -61,8 +62,8 @@ abstract class TypeMapAbstract
         }
 
         if (!($ret instanceof $type)) {
-            $refCls = $this->getReflectionClass($type);
-            $refObj = new ReflectionObject($ret);
+            $refCls  = $this->getReflectionClass($type);
+            $refObj  = new ReflectionObject($ret);
             $refThis = new ReflectionObject($this);
 
             (function (TypeError $e) {
@@ -77,30 +78,5 @@ abstract class TypeMapAbstract
         return $ret;
     }
 
-    /**
-     * Generate an instance of ReflectionClass.
-     * Throw UnsupportedTypeException if class does not exist.
-     *
-     * @param string $type
-     * @return ReflectionClass
-     */
-    private function getReflectionClass(string $type): ReflectionClass
-    {
-        try {
-            $refCls = new ReflectionClass($type);
-        } catch (ReflectionException $reflectionException) {
-            $name = $this->getShortName($type);
-            throw new NonexistentTypeException(
-                "The required class {$name} ({$type}) does not exist",
-                0, $reflectionException
-            );
-        }
-        return $refCls;
-    }
-
-    private function getShortName(string $type): string
-    {
-        $temp = explode('\\', $type);
-        return array_pop($temp);
-    }
+    use ReflectionClassAcquisition;
 }
