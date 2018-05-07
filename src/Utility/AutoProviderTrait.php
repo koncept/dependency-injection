@@ -18,6 +18,10 @@ use Strict\Collection\Vector\Scalar\Vector_string;
  * This trait automatically call those methods based on their return-value type hint.
  * Those factory methods will be called for each requirement of objects.
  *
+ * ***** ***** IMPORTANT ***** *****
+ * Do not use get() or getObject() in factory or provider methods.
+ * Using get() or getObject() is blocked because it will break type safety.
+ *
  * @author Showsay You <akizuki.c10.l65@gmail.com>
  * @copyright 2018 Koncept. All Rights Reserved.
  * @package koncept/dependency-injection
@@ -26,6 +30,7 @@ use Strict\Collection\Vector\Scalar\Vector_string;
 trait AutoProviderTrait
 {
     private $___APT___Object___List = [];
+    private $___APT___Providing     = false;
 
     /**
      * Return the list of supported types.
@@ -110,7 +115,16 @@ trait AutoProviderTrait
     protected function getObject(string $type): ?object
     {
         if (isset($this->___APT___Object___List[$type])) {
-            return ($this->___APT___Object___List[$type])();
+            if ($this->___APT___Providing)
+                throw new LogicException();
+
+            $this->___APT___Providing = true;
+
+            $ret = ($this->___APT___Object___List[$type])();
+
+            $this->___APT___Providing = false;
+
+            return $ret;
         }
         return null;
     }
