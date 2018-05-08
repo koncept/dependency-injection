@@ -4,7 +4,7 @@ namespace Koncept\DI\Tests\TestCases;
 
 use Koncept\DI\Exceptions\NonexistentTypeException;
 use Koncept\DI\Exceptions\UnsupportedTypeException;
-use Koncept\DI\Tests\Mocks\ZZZTypeMapMock;
+use Koncept\DI\Tests\TypeMaps\ZZZTypeMapMock;
 use Koncept\DI\Tests\Objects\ZZZObjectA;
 use Koncept\DI\Tests\Objects\ZZZObjectB;
 use Koncept\DI\Tests\Objects\ZZZObjectCDependingOnB;

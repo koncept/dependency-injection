@@ -1,6 +1,6 @@
 <?php
 
-namespace Koncept\DI\Tests\Mocks;
+namespace Koncept\DI\Tests\TypeMaps;
 
 use Koncept\DI\Tests\Objects\ZZZObjectA;
 use Koncept\DI\Tests\Objects\ZZZObjectB;

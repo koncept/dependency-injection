@@ -3,10 +3,10 @@
 namespace Koncept\DI\Tests\TestCases;
 
 use Koncept\DI\Exceptions\UnsupportedTypeException;
-use Koncept\DI\Tests\Mocks\ZZZBFiniteTypeMap;
-use Koncept\DI\Tests\Mocks\ZZZDFiniteTypeMap;
-use Koncept\DI\Tests\Mocks\ZZZN1TypeMap;
-use Koncept\DI\Tests\Mocks\ZZZN2TypeMap;
+use Koncept\DI\Tests\TypeMaps\ZZZBFiniteTypeMap;
+use Koncept\DI\Tests\TypeMaps\ZZZDFiniteTypeMap;
+use Koncept\DI\Tests\TypeMaps\ZZZN1TypeMap;
+use Koncept\DI\Tests\TypeMaps\ZZZN2TypeMap;
 use Koncept\DI\Tests\Objects\ZZZInterfaceN;
 use Koncept\DI\Tests\Objects\ZZZObjectA;
 use Koncept\DI\Tests\Objects\ZZZObjectB;

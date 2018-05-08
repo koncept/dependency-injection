@@ -1,14 +1,13 @@
 <?php
 
-namespace Koncept\DI\Tests\Mocks;
+namespace Koncept\DI\Tests\TypeMaps;
 
 use Koncept\DI\Base\FiniteTypeMapAbstract;
 use Koncept\DI\Tests\Objects\ZZZObjectB;
-use Koncept\DI\Tests\Objects\ZZZObjectDExtendsB;
 use Strict\Collection\Vector\Scalar\Vector_string;
 
 
-class ZZZDFiniteTypeMap
+class ZZZBFiniteTypeMap
     extends FiniteTypeMapAbstract
 {
 
@@ -36,6 +35,6 @@ class ZZZDFiniteTypeMap
      */
     protected function getObject(string $type): ?object
     {
-        return new ZZZObjectDExtendsB();
+        return new ZZZObjectB;
     }
 }

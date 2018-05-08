@@ -2,7 +2,7 @@
 
 namespace Koncept\DI\Tests\TestCases;
 
-use Koncept\DI\Tests\Mocks\ZZZFiniteTypeMapMock;
+use Koncept\DI\Tests\TypeMaps\ZZZFiniteTypeMapMock;
 use Koncept\DI\Tests\Objects\ZZZObjectA;
 use Koncept\DI\Tests\Objects\ZZZObjectB;
 use Koncept\DI\Tests\Objects\ZZZObjectCDependingOnB;

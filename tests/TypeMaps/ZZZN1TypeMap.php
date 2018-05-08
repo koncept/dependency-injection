@@ -1,27 +1,15 @@
 <?php
 
-namespace Koncept\DI\Tests\Mocks;
+namespace Koncept\DI\Tests\TypeMaps;
 
-use Koncept\DI\Base\FiniteTypeMapAbstract;
-use Koncept\DI\Tests\Objects\ZZZObjectB;
-use Strict\Collection\Vector\Scalar\Vector_string;
+use Koncept\DI\Base\TypeMapAbstract;
+use Koncept\DI\Tests\Objects\ZZZInterfaceN;
+use Koncept\DI\Tests\Objects\ZZZObjectN1;
 
 
-class ZZZBFiniteTypeMap
-    extends FiniteTypeMapAbstract
+class ZZZN1TypeMap
+    extends TypeMapAbstract
 {
-
-    /**
-     * Return the list of supported types.
-     * This method will be called only once for each instance.
-     *
-     * @return Vector_string
-     */
-    public function generateList(): Vector_string
-    {
-        return new Vector_string(ZZZObjectB::class);
-    }
-
     /**
      * Acquire object of the type.
      *
@@ -35,6 +23,17 @@ class ZZZBFiniteTypeMap
      */
     protected function getObject(string $type): ?object
     {
-        return new ZZZObjectB;
+        return new ZZZObjectN1;
+    }
+
+    /**
+     * Return the type is supported or not.
+     *
+     * @param string $type
+     * @return bool
+     */
+    public function supports(string $type): bool
+    {
+        return $type === ZZZInterfaceN::class;
     }
 }
