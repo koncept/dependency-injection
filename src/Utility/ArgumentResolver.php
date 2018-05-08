@@ -7,6 +7,7 @@ use Koncept\DI\Exceptions\UnresolvableParameterException;
 use Koncept\DI\TypeMapInterface;
 use ReflectionFunction;
 use ReflectionFunctionAbstract;
+use ReflectionMethod;
 
 
 /**
@@ -35,14 +36,17 @@ class ArgumentResolver
      * @see ArgumentResolver::resolveReflection()
      *
      * @param Closure $closure
+     * @param null|ReflectionFunctionAbstract $delegated
      * @return array
      */
-    public function resolveClosure(Closure $closure): array
-    {
+    public function resolveClosure(
+        Closure $closure,
+        ?ReflectionFunctionAbstract $delegated = null
+    ): array {
         return $this->resolveReflection(
             (function () use ($closure): ReflectionFunction {
                 return new ReflectionFunction($closure);
-            })()
+            })(), $delegated
         );
     }
 
@@ -58,10 +62,13 @@ class ArgumentResolver
      *   null will be given as long as the parameter is nullable.
      *
      * @param ReflectionFunctionAbstract $reflectionFunction
+     * @param ReflectionFunctionAbstract $delegated
      * @return array
      */
-    public function resolveReflection(ReflectionFunctionAbstract $reflectionFunction): array
-    {
+    public function resolveReflection(
+        ReflectionFunctionAbstract $reflectionFunction,
+        ?ReflectionFunctionAbstract $delegated = null
+    ): array {
         $arg = [];
 
         foreach ($reflectionFunction->getParameters() as $parameter) {
@@ -71,14 +78,14 @@ class ArgumentResolver
                     $arg[] = $parameter->getDefaultValue();
                     continue;
                 }
-                throw UnresolvableParameterException::OnNoTypeHint($reflectionFunction, $parameter);
+                throw UnresolvableParameterException::OnNoTypeHint($delegated ?? $reflectionFunction, $parameter);
             }
 
             if ($parameter->isPassedByReference())
-                throw UnresolvableParameterException::OnPassedByReference($reflectionFunction, $parameter);
+                throw UnresolvableParameterException::OnPassedByReference($delegated ?? $reflectionFunction, $parameter);
 
             if ($parameter->isVariadic())
-                throw UnresolvableParameterException::OnVariadic($reflectionFunction, $parameter);
+                throw UnresolvableParameterException::OnVariadic($delegated ?? $reflectionFunction, $parameter);
 
             $type = $parameter->getType();
             if ($type->isBuiltin()) {
@@ -86,7 +93,7 @@ class ArgumentResolver
                     $arg[] = $parameter->getDefaultValue();
                     continue;
                 }
-                throw UnresolvableParameterException::OnBuiltIn($reflectionFunction, $parameter);
+                throw UnresolvableParameterException::OnBuiltIn($delegated ?? $reflectionFunction, $parameter);
             }
 
             if (!$this->dependency->supports($name = $type->getName())) {
@@ -94,7 +101,7 @@ class ArgumentResolver
                     $arg[] = null;
                     continue;
                 }
-                throw UnresolvableParameterException::OnNotSupported($reflectionFunction, $parameter);
+                throw UnresolvableParameterException::OnNotSupported($delegated ?? $reflectionFunction, $parameter);
             }
 
             $arg[] = $this->dependency->get($name);
