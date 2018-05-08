@@ -3,7 +3,7 @@
 namespace Koncept\DI\Tests\Objects;
 
 
-class ZZZObjectDExtendsB
+class ZZZObjectDExtendingB
     extends ZZZObjectB
 {
 }

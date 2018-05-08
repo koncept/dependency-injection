@@ -10,7 +10,7 @@ use Koncept\DI\Tests\TypeMaps\ZZZN2TypeMap;
 use Koncept\DI\Tests\Objects\ZZZInterfaceN;
 use Koncept\DI\Tests\Objects\ZZZObjectA;
 use Koncept\DI\Tests\Objects\ZZZObjectB;
-use Koncept\DI\Tests\Objects\ZZZObjectDExtendsB;
+use Koncept\DI\Tests\Objects\ZZZObjectDExtendingB;
 use Koncept\DI\Tests\Objects\ZZZObjectN1;
 use Koncept\DI\Tests\Objects\ZZZObjectN2;
 use Koncept\DI\Utility\AggregateTypeMap;
@@ -41,19 +41,19 @@ class ZZZAggregateTypeMapTest
     public function testAggregate()
     {
         $a12 = new AggregateTypeMap($this->atm1, $this->atm2);
-        $this->assertInstanceOf(ZZZObjectDExtendsB::class, $a12->get(ZZZObjectB::class));
+        $this->assertInstanceOf(ZZZObjectDExtendingB::class, $a12->get(ZZZObjectB::class));
         $this->assertInstanceOf(ZZZObjectN2::class, $a12->get(ZZZInterfaceN::class));
 
         $a12 = $this->atm1->withTypeMap($this->atm2);
-        $this->assertInstanceOf(ZZZObjectDExtendsB::class, $a12->get(ZZZObjectB::class));
+        $this->assertInstanceOf(ZZZObjectDExtendingB::class, $a12->get(ZZZObjectB::class));
         $this->assertInstanceOf(ZZZObjectN2::class, $a12->get(ZZZInterfaceN::class));
 
         $a21 = new AggregateTypeMap($this->atm2, $this->atm1);
-        $this->assertNotInstanceOf(ZZZObjectDExtendsB::class, $a21->get(ZZZObjectB::class));
+        $this->assertNotInstanceOf(ZZZObjectDExtendingB::class, $a21->get(ZZZObjectB::class));
         $this->assertInstanceOf(ZZZObjectN1::class, $a21->get(ZZZInterfaceN::class));
 
         $a21 = $this->atm2->withTypeMap($this->atm1);
-        $this->assertNotInstanceOf(ZZZObjectDExtendsB::class, $a21->get(ZZZObjectB::class));
+        $this->assertNotInstanceOf(ZZZObjectDExtendingB::class, $a21->get(ZZZObjectB::class));
         $this->assertInstanceOf(ZZZObjectN1::class, $a21->get(ZZZInterfaceN::class));
 
         $a3 = $this->atm1->withObject(new ZZZObjectA);

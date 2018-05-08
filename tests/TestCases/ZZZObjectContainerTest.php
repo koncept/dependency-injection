@@ -8,7 +8,7 @@ use Koncept\DI\Exceptions\UnsupportedTypeException;
 use Koncept\DI\Tests\Objects\ZZZObjectA;
 use Koncept\DI\Tests\Objects\ZZZObjectB;
 use Koncept\DI\Tests\Objects\ZZZObjectCDependingOnB;
-use Koncept\DI\Tests\Objects\ZZZObjectDExtendsB;
+use Koncept\DI\Tests\Objects\ZZZObjectDExtendingB;
 use Koncept\DI\Utility\ObjectContainer;
 use PHPUnit\Framework\TestCase;
 
@@ -44,16 +44,16 @@ class ZZZObjectContainerTest
     {
         $oc = $this->objectContainer
             ->with(new ZZZObjectCDependingOnB(new ZZZObjectB))
-            ->with(new ZZZObjectDExtendsB, ZZZObjectB::class);
+            ->with(new ZZZObjectDExtendingB, ZZZObjectB::class);
 
         $this->assertTrue($oc->supports(ZZZObjectA::class));
         $this->assertTrue($oc->supports(ZZZObjectB::class));
         $this->assertTrue($oc->supports(ZZZObjectCDependingOnB::class));
-        $this->assertFalse($oc->supports(ZZZObjectDExtendsB::class));
+        $this->assertFalse($oc->supports(ZZZObjectDExtendingB::class));
 
         $this->assertInstanceOf(ZZZObjectA::class, $oc->get(ZZZObjectA::class));
         $this->assertInstanceOf(ZZZObjectB::class, $oc->get(ZZZObjectB::class));
-        $this->assertInstanceOf(ZZZObjectDExtendsB::class, $oc->get(ZZZObjectB::class));
+        $this->assertInstanceOf(ZZZObjectDExtendingB::class, $oc->get(ZZZObjectB::class));
         $this->assertInstanceOf(ZZZObjectCDependingOnB::class, $oc->get(ZZZObjectCDependingOnB::class));
     }
 
@@ -63,19 +63,19 @@ class ZZZObjectContainerTest
             ->with(new ZZZObjectB);
 
         $oc2 = (new ObjectContainer(new ZZZObjectCDependingOnB(new ZZZObjectB)))
-            ->with(new ZZZObjectDExtendsB, ZZZObjectB::class);
+            ->with(new ZZZObjectDExtendingB, ZZZObjectB::class);
 
         $merged = ObjectContainer::Merge($oc1, $oc2);
 
         $this->assertTrue($merged->supports(ZZZObjectA::class));
         $this->assertTrue($merged->supports(ZZZObjectB::class));
         $this->assertTrue($merged->supports(ZZZObjectCDependingOnB::class));
-        $this->assertFalse($merged->supports(ZZZObjectDExtendsB::class));
+        $this->assertFalse($merged->supports(ZZZObjectDExtendingB::class));
 
         $this->assertInstanceOf(ZZZObjectA::class, $merged->get(ZZZObjectA::class));
         $this->assertInstanceOf(ZZZObjectB::class, $merged->get(ZZZObjectB::class));
         $this->assertInstanceOf(ZZZObjectCDependingOnB::class, $merged->get(ZZZObjectCDependingOnB::class));
-        $this->assertInstanceOf(ZZZObjectDExtendsB::class, $merged->get(ZZZObjectB::class));
+        $this->assertInstanceOf(ZZZObjectDExtendingB::class, $merged->get(ZZZObjectB::class));
     }
 
     public function testIncompatibleWith()
@@ -89,6 +89,6 @@ class ZZZObjectContainerTest
     {
         $this->expectException(NonexistentTypeException::class);
         $this->objectContainer
-            ->with(new ZZZObjectDExtendsB(), 'INVALID_CLASS');
+            ->with(new ZZZObjectDExtendingB(), 'INVALID_CLASS');
     }
 }

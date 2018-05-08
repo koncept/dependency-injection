@@ -6,7 +6,7 @@ use Koncept\DI\Exceptions\UnresolvableParameterException;
 use Koncept\DI\Tests\Objects\ZZZObjectA;
 use Koncept\DI\Tests\Objects\ZZZObjectB;
 use Koncept\DI\Tests\Objects\ZZZObjectCDependingOnB;
-use Koncept\DI\Tests\Objects\ZZZObjectDExtendsB;
+use Koncept\DI\Tests\Objects\ZZZObjectDExtendingB;
 use Koncept\DI\Utility\ArgumentResolver;
 use Koncept\DI\Utility\ObjectContainer;
 use PHPUnit\Framework\TestCase;
@@ -23,7 +23,7 @@ class ZZZArgumentResolverTest
         $this->resolver = new ArgumentResolver(
             (new ObjectContainer)
                 ->with(new ZZZObjectA)
-                ->with(new ZZZObjectDExtendsB, ZZZObjectB::class)
+                ->with(new ZZZObjectDExtendingB, ZZZObjectB::class)
         );
     }
 
@@ -36,7 +36,7 @@ class ZZZArgumentResolverTest
             $d = 33,
             int $e = 4) {
             $this->assertInstanceOf(ZZZObjectA::class, $a);
-            $this->assertInstanceOf(ZZZObjectDExtendsB::class, $b);
+            $this->assertInstanceOf(ZZZObjectDExtendingB::class, $b);
             $this->assertNull($c);
             $this->assertEquals(33, $d);
             $this->assertEquals(4, $e);

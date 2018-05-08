@@ -8,7 +8,7 @@ use Koncept\DI\Tests\TypeMaps\ZZZTypeMapMock;
 use Koncept\DI\Tests\Objects\ZZZObjectA;
 use Koncept\DI\Tests\Objects\ZZZObjectB;
 use Koncept\DI\Tests\Objects\ZZZObjectCDependingOnB;
-use Koncept\DI\Tests\Objects\ZZZObjectDExtendsB;
+use Koncept\DI\Tests\Objects\ZZZObjectDExtendingB;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use TypeError;
@@ -33,7 +33,7 @@ class ZZZTypeMapAbstractTest
     public function testGetB()
     {
         $this->assertInstanceOf(ZZZObjectB::class, $this->typeMap->get(ZZZObjectB::class));
-        $this->assertInstanceOf(ZZZObjectDExtendsB::class, $this->typeMap->get(ZZZObjectB::class));
+        $this->assertInstanceOf(ZZZObjectDExtendingB::class, $this->typeMap->get(ZZZObjectB::class));
     }
 
     public function testGetC()

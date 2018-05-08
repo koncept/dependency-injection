@@ -6,7 +6,7 @@ use Koncept\DI\Tests\TypeMaps\ZZZFiniteTypeMapMock;
 use Koncept\DI\Tests\Objects\ZZZObjectA;
 use Koncept\DI\Tests\Objects\ZZZObjectB;
 use Koncept\DI\Tests\Objects\ZZZObjectCDependingOnB;
-use Koncept\DI\Tests\Objects\ZZZObjectDExtendsB;
+use Koncept\DI\Tests\Objects\ZZZObjectDExtendingB;
 use PHPUnit\Framework\TestCase;
 
 
@@ -26,6 +26,6 @@ class ZZZFiniteTypeMapAbstractTest
         $this->assertTrue($this->finiteTypeMap->supports(ZZZObjectA::class));
         $this->assertTrue($this->finiteTypeMap->supports(ZZZObjectB::class));
         $this->assertFalse($this->finiteTypeMap->supports(ZZZObjectCDependingOnB::class));
-        $this->assertFalse($this->finiteTypeMap->supports(ZZZObjectDExtendsB::class));
+        $this->assertFalse($this->finiteTypeMap->supports(ZZZObjectDExtendingB::class));
     }
 }

@@ -4,7 +4,7 @@ namespace Koncept\DI\Tests\TestCases;
 
 use Koncept\DI\Tests\Objects\ZZZObjectB;
 use Koncept\DI\Tests\Objects\ZZZObjectCDependingOnB;
-use Koncept\DI\Tests\Objects\ZZZObjectDExtendsB;
+use Koncept\DI\Tests\Objects\ZZZObjectDExtendingB;
 use Koncept\DI\Utility\Factory;
 use Koncept\DI\Utility\FiniteFactory;
 use Koncept\DI\Utility\ObjectContainer;
@@ -17,13 +17,13 @@ class ZZZFactoryTest
 {
     public function testFactory()
     {
-        $f = new Factory((new ObjectContainer)->with(new ZZZObjectDExtendsB, ZZZObjectB::class));
+        $f = new Factory((new ObjectContainer)->with(new ZZZObjectDExtendingB, ZZZObjectB::class));
         $this->assertInstanceOf(ZZZObjectCDependingOnB::class, $f->get(ZZZObjectCDependingOnB::class));
     }
 
     public function testFiniteFactory()
     {
-        $f = new class((new ObjectContainer)->with(new ZZZObjectDExtendsB, ZZZObjectB::class))
+        $f = new class((new ObjectContainer)->with(new ZZZObjectDExtendingB, ZZZObjectB::class))
             extends FiniteFactory
         {
             /**
