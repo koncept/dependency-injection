@@ -1,6 +1,6 @@
 # Koncept/DI
 
-Call maps from `type: string` into `object` `TypeMap`.  Using `TypeMap` various utility, especially dependency injection become possible.
+Call maps from `type: string` into `object` `TypeMap`.  By using `TypeMap`, various utility, especially dependency injection become possible.
 
 # Installation
 
